@@ -22,36 +22,36 @@ load_css(css_path)
 # READING THE FILES 
 
 if 'word_list1' not in st.session_state:
-    file_word = open(r"C:\Users\mahdi\Documents\Python\WebApp\W1.txt") 
+    file_word = open("assets/Data/W1.txt") 
     file_data = file_word.read() 
     st.session_state.word_list1 = file_data.splitlines() 
 
 if 'defs_list1' not in st.session_state:
-    file_defs = open(r"C:\Users\mahdi\Documents\Python\WebApp\Defs1.txt") 
+    file_defs = open("assets/Data/Defs1.txt") 
     defs_data = file_defs.read() 
     st.session_state.defs_list1 = defs_data.splitlines() 
 
 
 if 'word_list2' not in st.session_state:
-    file_word = open(r"C:\Users\mahdi\Documents\Python\WebApp\W2.txt") 
+    file_word = open("assets/Data/W2.txt") 
     file_data = file_word.read() 
     st.session_state.word_list2 = file_data.splitlines() 
     st.session_state.word_list = file_data.splitlines()
 
 if 'defs_list2' not in st.session_state:
-    file_defs = open(r"C:\Users\mahdi\Documents\Python\WebApp\Defs2.txt") 
+    file_defs = open("assets/Data/Defs2.txt") 
     defs_data = file_defs.read() 
     st.session_state.defs_list2 = defs_data.splitlines() 
     st.session_state.defs_list = defs_data.splitlines()
 
 
 if 'word_list3' not in st.session_state:
-    file_word = open(r"C:\Users\mahdi\Documents\Python\WebApp\W3.txt") 
+    file_word = open("assets/Data/W3.txt") 
     file_data = file_word.read() 
     st.session_state.word_list3 = file_data.splitlines() 
 
 if 'defs_list3' not in st.session_state:
-    file_defs = open(r"C:\Users\mahdi\Documents\Python\WebApp\Defs3.txt") 
+    file_defs = open("assets/Data/Defs3.txt") 
     defs_data = file_defs.read() 
     st.session_state.defs_list3 = defs_data.splitlines() 
 
