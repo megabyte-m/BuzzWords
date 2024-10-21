@@ -1,0 +1,63 @@
+.st-key-styledinput input {
+    color: #000
+}
+
+.alignright {
+    text-align: right;
+    font-size: 18px;
+}
+
+
+.lives {
+    text-align: left;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+
+.title {
+    text-align: center;
+    color: #ffffff;
+    font-size: 54px;
+    font-weight: bolder;
+    padding-bottom: 50px;
+}
+
+
+@keyframes skew-y-shakeing{
+    0% { transform: skewY(-15deg); }
+    5% { transform: skewY(15deg); }
+    10% { transform: skewY(-15deg); }
+    15% { transform: skewY(15deg); }
+    20% { transform: skewY(0deg); }
+    100% { transform: skewY(0deg); }
+   }
+
+
+
+.incorrect {
+    text-align: center;
+    color: #e12222;
+    font-weight: bold;
+    font-size: 24px;
+    animation-name: skew-y-shakeing;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+.correct {
+    text-align: center;
+    font-weight: bold;
+    color: #19A62A;
+    font-size: 24px;
+    animation-name: skew-y-shakeing;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+.waiting {
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 24px;
+}
