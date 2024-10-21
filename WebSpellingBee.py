@@ -78,8 +78,14 @@ if 'check_but_disabled' not in st.session_state:
 if 'def_but_disabled' not in st.session_state:
     st.session_state.def_but_disabled = True
 
-if 'level_but_disabled' not in st.session_state:
-    st.session_state.level_but_disabled = False
+if 'easy_but_disabled' not in st.session_state:
+    st.session_state.easy_but_disabled = False
+
+if 'moderate_but_disabled' not in st.session_state:
+    st.session_state.moderate_but_disabled = False
+
+if 'diff_but_disabled' not in st.session_state:
+    st.session_state.diff_but_disabled = False
 
 if 'correct_no' not in st.session_state:
     st.session_state.correct_no = 0
@@ -97,6 +103,13 @@ def disable_all_but():
     st.session_state.def_but_disabled = True
     st.session_state.reset_but_disabled = True
 
+def game_over():
+    st.session_state.play_but_disabled = True
+    st.session_state.check_but_disabled = True
+    st.session_state.def_but_disabled = True
+    st.session_state.easy_but_disabled = True
+    st.session_state.moderate_but_disabled = True
+    st.session_state.diff_but_disabled = True
 
 def enable_all_but():
     st.session_state.play_but_disabled = False
@@ -164,29 +177,38 @@ def check_spelling():
         st.session_state.correct_output = 0
         st.session_state.hearts_counter = st.session_state.hearts_counter - 1
 
+    if st.session_state.hearts_counter == 0:
+        game_over()
 
-    st.session_state.current_word = random.randint(1, 100)
+
+    st.session_state.current_word = random.randint(1, 300)
 
 
 
 def set_easy():
     st.session_state.word_list = st.session_state.word_list1
     st.session_state.defs_list = st.session_state.defs_list1
-    st.session_state.level_but_disabled = True
+    st.session_state.easy_but_disabled = False
+    st.session_state.moderate_but_disabled = True
+    st.session_state.diff_but_disabled = True
     st.session_state.play_but_disabled = False
     st.session_state.reset_but_disabled = False
 
 def set_moderate():
     st.session_state.word_list = st.session_state.word_list2
     st.session_state.defs_list = st.session_state.defs_list2
-    st.session_state.level_but_disabled = True
+    st.session_state.easy_but_disabled = True
+    st.session_state.moderate_but_disabled = False
+    st.session_state.diff_but_disabled = True
     st.session_state.play_but_disabled = False
     st.session_state.reset_but_disabled = False
 
 def set_difficult():
     st.session_state.word_list = st.session_state.word_list3
     st.session_state.defs_list = st.session_state.defs_list3
-    st.session_state.level_but_disabled = True
+    st.session_state.easy_but_disabled = True
+    st.session_state.moderate_but_disabled = True
+    st.session_state.diff_but_disabled = False
     st.session_state.play_but_disabled = False
     st.session_state.reset_but_disabled = False
 
@@ -195,7 +217,9 @@ def set_difficult():
 def reset():
     st.session_state.hearts_counter = 3
     st.session_state.correct_no = 0
-    st.session_state.level_but_disabled = False
+    st.session_state.easy_but_disabled = False
+    st.session_state.moderate_but_disabled = False
+    st.session_state.diff_but_disabled = False
     disable_all_but()
     st.session_state.correct_output = 2
 
@@ -262,13 +286,13 @@ separator.write("---")
 col_e, col_m, col_d, col_r = st.columns(4)
 
 with col_e:
-    dif_1 = st.button("Easy", on_click=set_easy, disabled=st.session_state.level_but_disabled, use_container_width=True)
+    dif_1 = st.button("Easy", on_click=set_easy, disabled=st.session_state.easy_but_disabled, use_container_width=True)
 
 with col_m:
-    dif_2 = st.button("Moderate", on_click=set_moderate, disabled=st.session_state.level_but_disabled, use_container_width=True)
+    dif_2 = st.button("Moderate", on_click=set_moderate, disabled=st.session_state.moderate_but_disabled, use_container_width=True)
 
 with col_d:
-    dif_3 = st.button("Difficult", on_click=set_difficult, disabled=st.session_state.level_but_disabled, use_container_width=True)
+    dif_3 = st.button("Difficult", on_click=set_difficult, disabled=st.session_state.diff_but_disabled, use_container_width=True)
 
 with col_r:
     reset_button = st.button("Reset the Game", on_click=reset, disabled=st.session_state.reset_but_disabled, use_container_width=True)
