@@ -154,9 +154,9 @@ def say_word(word):
 def audio_button_clicked():
     
     #disable_all_but()
-    threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
+    #threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
 
-    #say_word(st.session_state.word_list[st.session_state.current_word])
+    say_word(st.session_state.word_list[st.session_state.current_word])
 
     enable_all_but()
     st.session_state.correct_output = 2
@@ -165,9 +165,9 @@ def audio_button_clicked():
 def defs_button_clicked():
 
     #disable_all_but()
-    threading.Thread(target=say_word, args=(st.session_state.defs_list[st.session_state.current_word],)).start()
+    #threading.Thread(target=say_word, args=(st.session_state.defs_list[st.session_state.current_word],)).start()
 
-   # say_word(st.session_state.defs_list[st.session_state.current_word])
+    say_word(st.session_state.defs_list[st.session_state.current_word])
         
     
 
