@@ -139,22 +139,26 @@ def heart_emoji():
 
 
 
-def say_word(word):
+def say_word():
 
-    speaker = pyttsx3.init()
-    speaker.say(f'{word}')
-    speaker.runAndWait()
+    # speaker = pyttsx3.init()
+    # speaker.say(f'{word}')
+    # speaker.runAndWait()
     
-    if speaker._inLoop:
-        speaker.endLoop()
+    # if speaker._inLoop:
+    #     speaker.endLoop()
+
+    audio_file = open("xxx.mp3", "rb").read()
+    st.audio(audio_file, format="audio/mp3")
 
 
 def audio_button_clicked():
     
     #disable_all_but()
-    threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
+    #threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
     enable_all_but()
     st.session_state.correct_output = 2
+    say_word()
 
 
 def defs_button_clicked():
