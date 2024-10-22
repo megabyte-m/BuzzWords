@@ -1,3 +1,5 @@
-espeak-ng
+espeak
 alsa-utils
 alsa-tools
+ffmpeg
+software-properties-common
