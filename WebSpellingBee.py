@@ -4,7 +4,16 @@ import random
 import threading
 import pathlib
 import base64
+from pydub import AudioSegment
+import time
 
+
+# Audio Duration
+
+def get_audio_duration(file_path):
+    audio_file = AudioSegment.from_file(file_path)
+    duration = audio_file.duration_seconds
+    return duration
 
 
 # CSS READING
@@ -94,6 +103,12 @@ if 'correct_no' not in st.session_state:
 if 'reset_but_disabled' not in st.session_state:
     st.session_state.reset_but_disabled = True
 
+if 'difficulty_level' not in st.session_state:
+    st.session_state.difficulty_level = 2
+
+if 'audio_file' not in st.session_state:
+    st.session_state.audio_file = ""
+
 
 # MAKING SURE BUTTONS CAN'T BE CLICKED AT THE SAME TIME
 
@@ -140,29 +155,36 @@ def heart_emoji():
 
 
 
-def say_word(word):
+def say_word(audio_file):
 
-    speaker = pyttsx3.init()
-    speaker.say(f'{word}')
-    speaker.runAndWait()
+    # speaker = pyttsx3.init()
+    # speaker.say(f'{word}')
+    # speaker.runAndWait()
     
-    if speaker._inLoop:
-        speaker.endLoop()
+    # if speaker._inLoop:
+    #     speaker.endLoop()
+
+    st.session_state.audio_file = audio_file
 
 
 def audio_button_clicked():
     
-    disable_all_but()
-    threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
+    # disable_all_but()
+    # threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
+
     enable_all_but()
     st.session_state.correct_output = 2
+    word_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.curren_word}_{st.session_state.word_list[st.session_state.current_word]}.mp3'
+    say_word(word_audio_file)
 
 
 def defs_button_clicked():
 
     #disable_all_but()
-    threading.Thread(target=say_word, args=(st.session_state.defs_list[st.session_state.current_word],)).start()
-        
+    # threading.Thread(target=say_word, args=(st.session_state.defs_list[st.session_state.current_word],)).start()
+    
+    def_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.curren_word}_{st.session_state.word_list[st.session_state.current_word]}_def.mp3'
+    say_word(def_audio_file)
     
 
 def check_spelling():
@@ -182,7 +204,7 @@ def check_spelling():
         game_over()
 
 
-    st.session_state.current_word = random.randint(1, 300)
+    st.session_state.current_word = random.randint(0, 299)
 
 
 
@@ -194,6 +216,7 @@ def set_easy():
     st.session_state.diff_but_disabled = True
     st.session_state.play_but_disabled = False
     st.session_state.reset_but_disabled = False
+    st.session_state.difficulty_level = 1
 
 def set_moderate():
     st.session_state.word_list = st.session_state.word_list2
@@ -203,6 +226,7 @@ def set_moderate():
     st.session_state.diff_but_disabled = True
     st.session_state.play_but_disabled = False
     st.session_state.reset_but_disabled = False
+    st.session_state.difficulty_level = 2
 
 def set_difficult():
     st.session_state.word_list = st.session_state.word_list3
@@ -212,6 +236,7 @@ def set_difficult():
     st.session_state.diff_but_disabled = False
     st.session_state.play_but_disabled = False
     st.session_state.reset_but_disabled = False
+    st.session_state.difficulty_level = 3
 
 
 
@@ -223,6 +248,7 @@ def reset():
     st.session_state.diff_but_disabled = False
     disable_all_but()
     st.session_state.correct_output = 2
+    st.session_state.difficulty_level = 2
 
 
 
@@ -236,7 +262,7 @@ st.html(f'<p class="title"> BuzzWords </p>')
 col_h, col_s = st.columns([4, 1])
 
 with col_h:
-    
+
     st.html(f'<p class="lives"> Lives: {heart_emoji()} </p>')
 
 with col_s:
@@ -304,3 +330,16 @@ with col_r:
 if st.session_state.hearts_counter == 0:
     disable_all_but()
     disabled=st.session_state.reset_but_disabled = False
+
+
+if not st.session_state.audio_file == '':
+    audio = open(st.session_state.audio_file, "rb").read()
+
+    duration = get_audio_duration(st.session_state.audio_file)
+
+    st.audio(audio, format = "audtio/mp3", autoplay=True)
+    st.html('<div class="cover"> &nbsp; </div>')
+
+    time.sleep(duration)
+    st.session_state.audio_file = ''
+    st.rerun()
