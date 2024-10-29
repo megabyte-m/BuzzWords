@@ -174,7 +174,7 @@ def audio_button_clicked():
 
     enable_all_but()
     st.session_state.correct_output = 2
-    word_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.curren_word}_{st.session_state.word_list[st.session_state.current_word]}.mp3'
+    word_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.current_word}_{st.session_state.word_list[st.session_state.current_word]}.mp3'
     say_word(word_audio_file)
 
 
@@ -183,7 +183,7 @@ def defs_button_clicked():
     #disable_all_but()
     # threading.Thread(target=say_word, args=(st.session_state.defs_list[st.session_state.current_word],)).start()
     
-    def_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.curren_word}_{st.session_state.word_list[st.session_state.current_word]}_def.mp3'
+    def_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.current_word}_{st.session_state.word_list[st.session_state.current_word]}_def.mp3'
     say_word(def_audio_file)
     
 

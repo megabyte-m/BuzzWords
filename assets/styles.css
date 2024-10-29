@@ -61,3 +61,13 @@
     font-weight: bold;
     font-size: 24px;
 }
+
+
+.cover {
+    height: 100px;
+    width: 100%;
+    position: relative;
+    top: -80px;
+    z-index: 1;
+    background-color: #000;
+}
