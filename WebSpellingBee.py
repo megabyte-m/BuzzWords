@@ -3,6 +3,7 @@ import pyttsx3
 import random
 import threading
 import pathlib
+import base64
 
 
 
@@ -101,7 +102,7 @@ def disable_all_but():
     st.session_state.play_but_disabled = True
     st.session_state.check_but_disabled = True
     st.session_state.def_but_disabled = True
-    st.session_state.reset_but_disabled = True
+   # st.session_state.reset_but_disabled = True
 
 def game_over():
     st.session_state.play_but_disabled = True
@@ -139,26 +140,22 @@ def heart_emoji():
 
 
 
-def say_word():
+def say_word(word):
 
-    # speaker = pyttsx3.init()
-    # speaker.say(f'{word}')
-    # speaker.runAndWait()
+    speaker = pyttsx3.init()
+    speaker.say(f'{word}')
+    speaker.runAndWait()
     
-    # if speaker._inLoop:
-    #     speaker.endLoop()
-
-    audio_file = open("xxx.mp3", "rb").read()
-    st.audio(audio_file, format="audio/mp3")
+    if speaker._inLoop:
+        speaker.endLoop()
 
 
 def audio_button_clicked():
     
-    #disable_all_but()
-    #threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
+    disable_all_but()
+    threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
     enable_all_but()
     st.session_state.correct_output = 2
-    say_word()
 
 
 def defs_button_clicked():
@@ -239,7 +236,7 @@ st.html(f'<p class="title"> BuzzWords </p>')
 col_h, col_s = st.columns([4, 1])
 
 with col_h:
-    #st.write(f'Lives: {heart_emoji()}')
+    
     st.html(f'<p class="lives"> Lives: {heart_emoji()} </p>')
 
 with col_s:
@@ -307,5 +304,3 @@ with col_r:
 if st.session_state.hearts_counter == 0:
     disable_all_but()
     disabled=st.session_state.reset_but_disabled = False
-
-
