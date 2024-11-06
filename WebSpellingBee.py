@@ -298,8 +298,8 @@ with col1:
     attempt_button = st.button("Check Spelling", on_click=check_spelling, disabled=st.session_state.check_but_disabled, use_container_width=True)
 
 with col2:
-    audio_button = st.button("Play word", on_click=audio_button_clicked, disabled=st.session_state.play_but_disabled, use_container_width=True)
-    defs_button = st.button("Play definition", on_click=defs_button_clicked, disabled=st.session_state.def_but_disabled, use_container_width=True)
+    audio_button = st.button("Play Word", on_click=audio_button_clicked, disabled=st.session_state.play_but_disabled, use_container_width=True)
+    defs_button = st.button("Play Definition", on_click=defs_button_clicked, disabled=st.session_state.def_but_disabled, use_container_width=True)
 
 
 
@@ -322,7 +322,7 @@ with col_d:
     dif_3 = st.button("Difficult", on_click=set_difficult, disabled=st.session_state.diff_but_disabled, use_container_width=True)
 
 with col_r:
-    reset_button = st.button("Reset the Game", on_click=reset, disabled=st.session_state.reset_but_disabled, use_container_width=True)
+    reset_button = st.button("Reset Game", on_click=reset, disabled=st.session_state.reset_but_disabled, use_container_width=True)
 
 
 
@@ -330,6 +330,9 @@ with col_r:
 if st.session_state.hearts_counter == 0:
     disable_all_but()
     disabled=st.session_state.reset_but_disabled = False
+
+
+st.html('<div class="instructions"> <h3>How to play:</h3> <br><br> To start, pick a difficulty: "Easy", "Moderate", or "Difficult" <br><br> Click the "Play Word" button to hear the word you are supposed to spell <br><br> For guidance, use the "Play Definition" button to hear the definition of the word <br><br> Type in the word you hear in the input box, then press the large "Check Spelling" button <br><br> <br> For each correct word, 1 is added to the "Correct Words" counter <br><br> For each incorrect word, 1 life will be taken away. You have 3 lives <br><br> You will not hear the same word again if you get it wrong <br><br> To play again, click the "Reset Game" button</div>')
 
 
 if not st.session_state.audio_file == '':
