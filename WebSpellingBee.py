@@ -73,6 +73,9 @@ if 'defs_list3' not in st.session_state:
 if 'current_word' not in st.session_state:
     st.session_state.current_word = random.randint(1, 300)
 
+if 'current_word_spelling' not in st.session_state:
+    st.session_state.current_word_spelling = ""
+
 if 'correct_output' not in st.session_state:
     st.session_state.correct_output = 2
 
@@ -172,10 +175,13 @@ def audio_button_clicked():
     # disable_all_but()
     # threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
 
+    st.session_state.current_word = random.randint(0, 299)
+
     enable_all_but()
     st.session_state.correct_output = 2
     word_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.current_word}_{st.session_state.word_list[st.session_state.current_word]}.mp3'
     say_word(word_audio_file)
+
 
 
 def defs_button_clicked():
@@ -187,24 +193,24 @@ def defs_button_clicked():
     say_word(def_audio_file)
     
 
+
 def check_spelling():
     
     if entry_word == "":
         return
 
-    if entry_word == st.session_state.word_list[st.session_state.current_word]:
+    if entry_word.lower() == st.session_state.word_list[st.session_state.current_word]:
         st.session_state.correct_output = 1
         st.session_state.correct_no = st.session_state.correct_no + 1
 
     else:
         st.session_state.correct_output = 0
         st.session_state.hearts_counter = st.session_state.hearts_counter - 1
+        st.session_state.current_word_spelling = st.session_state.word_list[st.session_state.current_word]
 
     if st.session_state.hearts_counter == 0:
         game_over()
 
-
-    st.session_state.current_word = random.randint(0, 299)
 
 
 
@@ -271,14 +277,14 @@ with col_s:
 
 
 
-col_du1, col_cor, col_du2 = st.columns(3)
+col_du1, col_cor, col_du2 = st.columns([1,3,1])
 
 with col_du1:
     st.write("")
 
 with col_cor:
     if st.session_state.correct_output == 0:
-       st.html('<p class="incorrect"> Incorrect! </p>')
+       st.html(f'<p class="incorrect"> Incorrect! - {st.session_state.current_word_spelling} </p>')
 
     if st.session_state.correct_output == 1:
        st.html('<p class="correct"> Correct! </p>')
