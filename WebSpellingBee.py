@@ -175,8 +175,6 @@ def audio_button_clicked():
     # disable_all_but()
     # threading.Thread(target=say_word, args=(st.session_state.word_list[st.session_state.current_word],)).start()
 
-    st.session_state.current_word = random.randint(0, 299)
-
     enable_all_but()
     st.session_state.correct_output = 2
     word_audio_file = f'assets/Data/Audio/L{st.session_state.difficulty_level}/{st.session_state.current_word}_{st.session_state.word_list[st.session_state.current_word]}.mp3'
@@ -195,7 +193,7 @@ def defs_button_clicked():
 
 
 def check_spelling():
-    
+
     if entry_word == "":
         return
 
@@ -210,6 +208,8 @@ def check_spelling():
 
     if st.session_state.hearts_counter == 0:
         game_over()
+
+    st.session_state.current_word = random.randint(0, 299)
 
 
 
